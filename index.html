@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Js od podstaw</title>
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="src/css/styles.css" />
+    
+  </head>
+  <body>
+    <h2>Koszyk</h2>
 
-</head>
-<body>
-    <h1>Js od podstaw</h1>
-</body>
+    <table class="card-table">
+      <thead>
+        <tr>
+          <th>Kurs</th>
+          <th>Ilość</th>
+          <th>Cena</th>
+        </tr>
+      </thead>
+      <tbody id="items">
+        <tr>
+          <td colspan="2" style="text-align: right"><b>Razem:</b></td>
+          <td><b id='total-price'>0</b></td>
+        </tr>
+        <script src="src/js/app.js"></script>
+      </tbody>
+    </table>
+  </body>
 </html>
