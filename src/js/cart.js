@@ -1,14 +1,39 @@
-const product1 = { price: 10, title: "JS od podstaw" };
-const product2 = { price: "20", title: "PHP od podstaw" };
-const discount = 10;
-let discountEnabled = false;
+(() =>{
+  const cart = {
+  price: 0,
+  getPrice() {
+    this.price = 0;
+    this.items.forEach(item => this.price += item.price)
+    this.price -= this.getDiscountIfEnabled();
+    return this.price;
+  },
+  getDiscount() {
+    return this.discount.amount;
+  },
+  getDiscountIfEnabled() {
+    if (this.discount.enabled) {
+      return this.getDiscount();
+    } else {
+      return 0;
+    }
+  },
+  discount: {
+    amount: 10,
+    enabled: false,
+  },
+  items: [
+    { price: 10, title: "JS od podstaw" },
+    { price: 20, title: "PHP od podstaw" },
+  ],
+}
 
 const discountElement = document.querySelector("#discount");
 const discountCheckbox = document.querySelector("#add-discount");
 const itemsContainer = document.querySelector("#items");
 
-let counter = 1;
-const addItem = (item) => {
+cart.items.forEach(item => addItem(item))
+
+function addItem (item) {
   itemsContainer.innerHTML += `<tr>
   <td><button class="delete">x</button></td>
   <td>${item.title}</td>
@@ -17,8 +42,7 @@ const addItem = (item) => {
   </tr>`;
 }
 
-addItem(product1);
-addItem(product2);
+cart.getPrice();
 
 const removeRow = (e) => {
   if (e.target.tagName === "BUTTON") {
@@ -41,10 +65,12 @@ const markBg = (e) => {
 }
 
 //dodaj zniżkę
-const addDiscount = (e) => {
-  discountEnabled = e.target.checked;
-  if (discount) {
-    document.querySelector("#discount-amount").innerHTML = -discount;
+const addDiscount = function(e) {
+  this.discount.enabled = e.target.checked;
+  if (this.getDiscount() > 0) {
+    document
+    .querySelector("#discount-amount")
+    .innerHTML = -this.getDiscount();
     discountElement.classList.toggle("hidden");
   }
   calculatePrice();
@@ -52,16 +78,12 @@ const addDiscount = (e) => {
 
 // cena całkowita
 const calculatePrice = () => {
-  let total = Number(product1.price) + Number(product2.price);
-  if (discountEnabled) {
-    total -= discount;
-  }
+  let total = cart.getPrice();
   document.querySelector("#total-price").innerHTML = total;
 }
-
 calculatePrice();
 
-discountCheckbox.addEventListener("click", addDiscount);
+discountCheckbox.addEventListener("click", addDiscount.bind(cart));
 itemsContainer.addEventListener("click", markBg);
 itemsContainer.addEventListener("click", removeRow);
 itemsContainer.addEventListener("change", removeRowFromQuantity);
@@ -73,3 +95,4 @@ const discountShouldBeEnabled =
 if (discountShouldBeEnabled) {
   discountCheckbox.click();
 }
+})()
