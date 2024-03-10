@@ -4,6 +4,8 @@ body {
     font-family: "Open Sans", sans-serif;
     background-color: #f3f0f0;
     font-size:  16px;
+    margin: 0;
+    padding: 0;
 }
 
 .card-table {
@@ -52,4 +54,63 @@ input {
     border: 0;
     border-bottom: 3px solid #c9c9c9;
     background-color: #e9e8e8;
+}
+
+.box {
+    background-color: #dfdfdf;
+    border: 1px solid #b3b3b3;
+}
+.box-body {
+    padding: 10px 20px;
+}
+.box-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.button {
+    background-color: #313131;
+    color: #e5e5e5;
+    border: 0;
+    display: inline-block;
+    padding: 12px 25px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s linear;
+}
+.button:hover {
+    background-color: #535353;
+}
+.coursers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.navigation {
+    background-color: #211749;
+    color:#c9c9c9;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+.navigation-list {
+    list-style-type: none;
+    padding: 0;
+}
+.navigation-list a {
+    color: #c9c9c9;
+    text-decoration: none;
+}
+.counter {
+    background-color: #ffff;
+    color: #0c0c0c;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-left: 6px;
+    padding: 2px 4px 1px 4px;
+}
+.container {
+    padding: 0 20px;
+    max-width: 980px;
+    margin: 0 auto;
 }
