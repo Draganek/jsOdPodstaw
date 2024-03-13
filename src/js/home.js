@@ -20,17 +20,20 @@ function createCart() {
 
 const cart = createCart();
 
-const addClass = (className, text, element) => {
-    element.classList.add(className);
-    element.innerText = text;
+const addClass = (className, text) => {
+    return (element) => {
+        element.classList.add(className);
+        element.innerText = text;
+    }
 }
+const addClassInCart = addClass('in-cart', 'Dodano');
 
 const addToCartHandler = (e) => {
     if (e.target.tagName !== 'BUTTON') return;
     const title = e.target.dataset.title;
     const price = Number(e.target.dataset.price);
     cart.add(title, price);
-    addClass('in-cart', 'Dodano', e.target);
+    addClassInCart(e.target);
 }
 
 coursesList.addEventListener('click', addToCartHandler);

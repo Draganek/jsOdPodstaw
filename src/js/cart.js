@@ -1,10 +1,8 @@
-(() =>{
+(function() {
   const cart = {
   price: 0,
-  getPrice() {
-    this.price = 0;
-    this.items.forEach(item => this.price += item.price)
-    this.price -= this.getDiscountIfEnabled();
+  getPrice(cb) {
+    this.price = cb(this.items, this.getDiscountIfEnabled());
     return this.price;
   },
   getDiscount() {
@@ -22,8 +20,8 @@
     enabled: false,
   },
   items: [
-    { price: 10, title: "JS od podstaw" },
-    { price: 20, title: "PHP od podstaw" },
+    { id: 1, price: 10, title: "JS od podstaw" },
+    { id: 2, price: 20, title: "PHP od podstaw" },
   ],
 }
 
@@ -34,15 +32,13 @@ const itemsContainer = document.querySelector("#items");
 cart.items.forEach(item => addItem(item))
 
 function addItem (item) {
-  itemsContainer.innerHTML += `<tr>
+  itemsContainer.innerHTML += `<tr data-course-id="${item.id}">
   <td><button class="delete">x</button></td>
   <td>${item.title}</td>
   <td><input type="number" class="quantity" value="1"></td>
   <td>${item.price}</td>
   </tr>`;
 }
-
-cart.getPrice();
 
 const removeRow = (e) => {
   if (e.target.tagName === "BUTTON") {
@@ -76,9 +72,20 @@ const addDiscount = function(e) {
   calculatePrice();
 }
 
+const getPriceRegularClient = (items, discount) => {
+  return items.reduce((acc, item) => acc + item.price,0) - discount;
+}
+const getPriceSuperClient = (items, discount) => {
+  return items.reduce((acc, item) => acc + item.price -1,0) - discount;
+}
+
 // cena całkowita
 const calculatePrice = () => {
-  let total = cart.getPrice();
+  const superClient = false;
+  let cb = getPriceRegularClient;
+  if (superClient) cb = getPriceSuperClient;
+
+  let total = cart.getPrice(cb);
   document.querySelector("#total-price").innerHTML = total;
 }
 calculatePrice();
