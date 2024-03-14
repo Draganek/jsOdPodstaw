@@ -1,4 +1,5 @@
 (function() {
+  // dogięcie
   const cart = {
   price: 0,
   getPrice(cb) {
