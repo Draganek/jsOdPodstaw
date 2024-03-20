@@ -4,6 +4,7 @@
   price: 0,
   getPrice(cb) {
     this.price = cb(this.items, this.getDiscountIfEnabled());
+    if (this.price < 0) this.price = 0;
     return this.price;
   },
   getDiscount() {
@@ -15,6 +16,12 @@
     } else {
       return 0;
     }
+  },
+  removeCourse(id) {
+    const index = this.items.findIndex(item => item.id === id);
+    this.items.splice(index, 1);
+    calculatePrice();
+    
   },
   discount: {
     amount: 10,
@@ -44,14 +51,18 @@ function addItem (item) {
 const removeRow = (e) => {
   if (e.target.tagName === "BUTTON") {
     const row = e.target.closest("tr");
+    cart.removeCourse(Number(row.dataset.courseId));
     row.remove();
+    calculatePrice();
   }
 }
 
 const removeRowFromQuantity = (e) => {
   if (Number(e.target.value) === 0) {
     const row = e.target.closest("tr");
+    cart.removeCourse(Number(row.dataset.courseId));
     row.remove();
+    calculatePrice();
   }
 }
 

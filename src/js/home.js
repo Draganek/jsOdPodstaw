@@ -1,39 +1,56 @@
 const coursesList = document.querySelector('.coursers-list');
 const counter = document.querySelector('.counter');
 
+
 function createCart() {
     const items = [];
 
-    const refreshProductsCount = () => {
-        counter.innerText = items.length;
+    const refreshProductsCount = () => counter.innerText = items.length;
+
+    const add = (id, title, price, quantity = 1) => {
+        items.push({id, title,price,quantity});
+        refreshProductsCount();
     }
 
-    const add = (title, price, quantity = 1) => {
-        items.push({title,price,quantity});
+    const remove = (id) => {
+        const index = items.findIndex(item => item.id === id);
+        items.splice(index, 1);
         refreshProductsCount();
+
     }
 
     return {
         add,
+        remove
     };
 }
 
 const cart = createCart();
 
-const addClass = (className, text) => {
+const toggleClass = (className, text, mode) => {
+    // mode = add, remove
     return (element) => {
-        element.classList.add(className);
+        element.classList[mode](className);
         element.innerText = text;
     }
 }
-const addClassInCart = addClass('in-cart', 'Dodano');
+const addClassInCart = toggleClass('in-cart', 'Usuń z koszyka', 'add');
+const removeClassInCart = toggleClass('in-cart', 'Dodaj do koszyka', 'remove');
 
 const addToCartHandler = (e) => {
     if (e.target.tagName !== 'BUTTON') return;
     const title = e.target.dataset.title;
     const price = Number(e.target.dataset.price);
-    cart.add(title, price);
-    addClassInCart(e.target);
+    const id = Number(e.target.dataset.id)
+
+    if (e.target.classList.contains('in-cart')) {
+        cart.remove(id)
+        removeClassInCart(e.target);
+    } else {
+        cart.add(title, price);
+        addClassInCart(e.target);
+    }
+    
 }
 
 coursesList.addEventListener('click', addToCartHandler);
