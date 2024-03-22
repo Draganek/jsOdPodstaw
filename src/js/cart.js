@@ -37,6 +37,8 @@ const discountElement = document.querySelector("#discount");
 const discountCheckbox = document.querySelector("#add-discount");
 const itemsContainer = document.querySelector("#items");
 
+cart.items.sort((a,b) => a.price - b.price)
+
 cart.items.forEach(item => addItem(item))
 
 function addItem (item) {
