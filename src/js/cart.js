@@ -32,6 +32,7 @@
     { id: 2, price: 20, title: "PHP od podstaw" },
   ],
 }
+//updata_10
 
 const discountElement = document.querySelector("#discount");
 const discountCheckbox = document.querySelector("#add-discount");
