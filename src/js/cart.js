@@ -116,4 +116,12 @@ const discountShouldBeEnabled =
 if (discountShouldBeEnabled) {
   discountCheckbox.click();
 }
+
+const savePriceToStore = () => {
+  localStorage.setItem('totalPrice', cart.price);
+}
+
+const nextButton = document.querySelector('#go-to-summary');
+nextButton.addEventListener('click', savePriceToStore);
+
 })()
