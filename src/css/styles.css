@@ -8,6 +8,10 @@ body {
     padding: 0;
 }
 
+button {
+    all: unset;
+}
+
 .card-table {
     background-color: #ffffff;
     width: 100%;
@@ -149,4 +153,30 @@ input {
     .card {
         width: 100%;
     }
+}
+
+#errors {
+    padding: 0;
+}
+#errors li {
+    list-style-type: none;
+    background-color: #f45f5f;
+    border: 2px dashed red;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 31px;
+    font-weight: bold;
 }
