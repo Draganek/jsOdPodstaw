@@ -1,26 +1,43 @@
 (() => {
-  const endTime = "2024-04-24T14:54:15.00Z";
-  const counter = document.querySelector("#promotion-counter");
+  
+  const runCounter = (endTime) => {
+    const counter = document.querySelector('#promotion-counter');
 
-  const getSecondsUntillDate = (date) => {
-    const end = new Date(date);
-    const seconds = end.getTime() / 1000;
-    const startSeconds = Date.now() / 1000;
+    const getSecondsUntillDate = (date) => {
+      const end = new Date(date);
+      const seconds = end.getTime() / 1000;
+      const startSeconds = Date.now() / 1000;
 
-    return seconds - startSeconds;
+      return seconds - startSeconds;
+    }
+    const getTimerFormat = seconds => {
+      if (seconds <= 0) return 'Koniec'
+      
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds - h * 3600) / 60); 
+      const s = Math.floor(seconds - h * 3600 - m * 60);
+
+      return `${h} godz. ${m} min ${s} s`;
+    }
+
+    const s = getSecondsUntillDate(endTime);
+
+    counter.innerHTML = getTimerFormat(s);
   }
 
-  const getTimerFormat = seconds => {
-    if (seconds <= 0) return 'koniec';
+  const date = new Date();
+  date.setMinutes(date.getMinutes() + 1);
+  const endTime = date.toISOString();
+  // const endTime = '2023-03-24T14:54:00Z';
 
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds - h * 3600) / 60);
-    const s = Math.floor(seconds - h * 3600 - m * 60);
+  runCounter(endTime);
 
-    return `${h} godz. ${m} min ${s} s`
-  }
+  const intervalId = setInterval(() => {
+    runCounter(endTime);
 
-  const s = getSecondsUntillDate(endTime);
+    if (Date.now() > date.getTime()) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
 
-  counter.innerHTML = getTimerFormat(s);
 })();

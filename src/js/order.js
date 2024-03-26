@@ -55,6 +55,10 @@ const onSubmit = (e) => {
   const hasErrors = validateValues(values);
   if (!hasErrors) {
     document.querySelector('#loading').style.display = 'flex';
+
+    setTimeout(() => {
+      window.location.href = '/thanks.html'
+    }, 3000)
   }
 };
 
