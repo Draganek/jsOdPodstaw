@@ -56,6 +56,8 @@ const onSubmit = (e) => {
   if (!hasErrors) {
     document.querySelector('#loading').style.display = 'flex';
 
+    localStorage.removeItem('items');
+
     setTimeout(() => {
       window.location.href = '/thanks.html'
     }, 3000)
