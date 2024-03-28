@@ -1,1 +1,1 @@
-*Service build created with JS course
+Service build created with vanilla JS course.
