@@ -1,1 +1,1 @@
-Service build created with vanilla JS course. :D
+Service build created with vanilla JS course.
